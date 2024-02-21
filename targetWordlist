@@ -24,13 +24,13 @@ shuffle=./barebone/shuffle-files.py
 while getopts "b:f:y:Y:s:o:hT" flag
 do
     case "${flag}" in
-    b) brandname=${OPTARG};;
+		b) brandname=${OPTARG};;
 		f) filename=${OPTARG};;
 		y) yS=${OPTARG};;
 		Y) yE=${OPTARG};;
 		s) sep=${OPTARG};;
-    T) t="t";;
-    o) o=${OPTARG};;
+		T) t="t";;
+		o) o=${OPTARG};;
 		h) { printf "$HELPTEXT"; exit };;
     esac
 done
@@ -64,8 +64,8 @@ save(){
 }
 
 clean(){
-  rm f2 f3;
-
+  [ -e f2 ] && rm f2;
+  [ -e f3 ] && rm f3;
   [ -e f1 ] && rm f1;
   [ -e leetbrand_unique ] && rm leetbrand_unique;
 }
@@ -73,7 +73,7 @@ clean(){
 # brandname.
 # make sure "$brandname", not $brandname inside squared brackets []
  
-[ -n "$brandname" ] && {
+if [ -n "$brandname" ]; then {
   echo "[info] Brand: $brandname";
 
   # leetspeak from brandname
@@ -91,13 +91,13 @@ clean(){
   save;
   clean;
 
-} || { echo "[error] No brand name"; exit }
+} else echo "[debug] No brand name";
+fi
 
 # file
-#[debug] echo "filename: $filename";
-[ "$filename" = "" -o -n "$filename" ] && { exit }
-[ -r "$filename" ] && {
-	echo "file: $filename"
+[ -z "$filename" ] && { echo "[debug] No filename"; exit };
+echo "[info] file: $filename"
+if [ -r "$filename" ]; then {
 
   # wordlist generation
   setup;
@@ -107,7 +107,6 @@ clean(){
   echo "[info] wordlist total entries: $(wc -l shuffled_unique)"
   save;
   clean;
-
-} || { echo "[error] No file or read permission"; exit }
-
+} else echo "[error] No file or read permission";
+fi
 
