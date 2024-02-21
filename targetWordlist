@@ -60,7 +60,7 @@ setup(){
 }
 
 save(){
-  [ "$o" = "" ] && { echo shuffle1; mv shuffled_unique wl_$brandname$filename } || { echo shuffle2; mv shuffled_unique "$o" }
+  [ "$o" = "" ] && { mv shuffled_unique wl_$brandname$filename } || { mv shuffled_unique "$o" }
 }
 
 clean(){
@@ -74,20 +74,20 @@ clean(){
 # make sure "$brandname", not $brandname inside squared brackets []
  
 [ -n "$brandname" ] && {
-  echo "Brand: $brandname";
+  echo "[info] Brand: $brandname";
 
   # leetspeak from brandname
   $genleet $brandname > ./leetbrand
   $unique leetbrand
   rm leetbrand
-  echo "leet(l33t) brand generated words total: $(wc -l leetbrand_unique)"
+  echo "[info] leet(l33t) brand generated words total: $(wc -l leetbrand_unique)"
 
   # wordlist generation
   setup;
   $shuffle leetbrand_unique f2 f3
   $unique shuffled
   rm shuffled
-  echo "wordlist total entries: $(wc -l shuffled_unique)"
+  echo "[info] wordlist total entries: $(wc -l shuffled_unique)"
   save;
   clean;
 
@@ -95,7 +95,7 @@ clean(){
 
 # file
 #[debug] echo "filename: $filename";
-[ "$filename" = "" -a -n "$filename" ] && { exit }
+[ "$filename" = "" -o -n "$filename" ] && { echo d1; exit }
 [ -r "$filename" ] && {
 	echo "file: $filename"
 
@@ -104,7 +104,7 @@ clean(){
   $shuffle $filename f2 f3
   $unique shuffled
   rm shuffled
-  echo "wordlist total entries: $(wc -l shuffled_unique)"
+  echo "[info] wordlist total entries: $(wc -l shuffled_unique)"
   save;
   clean;
 
