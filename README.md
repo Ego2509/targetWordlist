@@ -1,6 +1,6 @@
 # Targeted wordlist
 
-script to generate passwords when testing against auth sites of a brand or from a file.
+Script to generate passwords when testing against auth sites of a brand or from a file.
 
 type ` ./targetWordlist -h ` to see the documentation.
 
