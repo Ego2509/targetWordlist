@@ -18,7 +18,7 @@ for filename in ifs:
         nouns.append(temp2)
 
 #[debug] 
-print(nouns)
+#[debug] print(nouns)
 
 #this is the permutation pattern that will be generated:
 #nouns[j][k]

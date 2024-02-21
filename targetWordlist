@@ -60,7 +60,7 @@ setup(){
 }
 
 save(){
-  [ o = "" ] && { mv shuffled_unique $brandname${filename}_wl } || { mv shuffled_unique $o }
+  [ "$o" = "" ] && { echo shuffle1; mv shuffled_unique wl_$brandname$filename } || { echo shuffle2; mv shuffled_unique "$o" }
 }
 
 clean(){
@@ -95,7 +95,7 @@ clean(){
 
 # file
 #[debug] echo "filename: $filename";
-[ -n "$filename" ] && { exit }
+[ "$filename" = "" -a -n "$filename" ] && { exit }
 [ -r "$filename" ] && {
 	echo "file: $filename"
 
