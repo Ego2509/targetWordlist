@@ -13,19 +13,16 @@ targetWordlist -f [2;33mfileWithBrandNames[0m -y [2;34m2018[0m -Y [2;32m202
 targetWordlist -f [2;33mfileWithBrandNames[0m -y [2;34m2018[0m -Y [2;32m2024[0m -s [2;36m'*#!.+?_'[0m [2;31m-T[0m
 
 [2;36mparameters:
-[0moption	 description
-  -h 	 show this
-  -[2;33mb[0m		[2;33mbrandname[0m
-  -[2;33mf[0m		[2;33mfile with wordlist[0m targeted to the brand (months, names, etc)
-  -[2;34my[0m		Starting year (default: [2;34m2021[0m)
-  -[2;32mY[0m		Ending year (default: [2;32m2023[0m)
+  option description
+  -[2;32mh[0m	show this
+  -[2;34mo[0m	[2;36moutput file[0m. (default: [2;33mbrandname[0m_unique)
+  -[2;33mb[0m	[2;33mbrandname[0m
+  -[2;33mf[0m	[2;33mfile with wordlist[0m targeted to the brand (months, names, etc)
+  -[2;34my[0m	Starting year (default: [2;34m2021[0m)
+  -[2;32mY[0m	Ending year (default: [2;32m2023[0m)
   
-  -[2;36ms[0m		Separators (example: -s [2;36m'#.+'[0m) (default: *#!.)
+  -[2;36ms[0m	Separators (example: -s [2;36m'#.+'[0m) (default: *#!.)
 there will always be a permutation without separators unless you use [2;31m-T[0m
   
-  [2;31m-T[0m		Avoids permutations with empty nouns
-using it will only generate [2;34mijk[0m or [2;34mikj[0m permutations (less than normal)
-never [2;33m[2;35mij or ik or i[0m[2;33m[0m.
-It might be [2;35museful if you don't want to repeat said permutations[0m.
+  -[2;31mT[0m	Avoids permutations with empty nouns. Using it will only generate [2;34mijk[0m or [2;34mikj[0m permutations (less than without -T). Never [2;33m[2;35mij or ik or i[0m[2;33m[0m. It might be useful if you don't want to repeat said permutations.
 
-  -o	[2;36moutput file[0m. (default: \$brandname_unique)
