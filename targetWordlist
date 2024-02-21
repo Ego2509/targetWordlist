@@ -1,0 +1,113 @@
+#!/bin/zsh
+
+HELPTEXT=$(cat helpc)
+
+(( $# )) || { printf "$HELPTEXT"; exit }
+
+# default values:
+brandname=""
+filename=""
+yS=2021
+yE=2023
+sep='*#!.' # must be scaped if needed
+t="f"
+o=""
+
+# programs
+unique=./barebone/unique
+genleet=./barebone/genleeterspeak.py
+shuffle=./barebone/shuffle-files.py
+
+# the colon means that the flag has an argument (receives text)
+# the double semicolon is the end of the specified switch case
+
+while getopts "b:f:y:Y:s:o:hT" flag
+do
+    case "${flag}" in
+    b) brandname=${OPTARG};;
+		f) filename=${OPTARG};;
+		y) yS=${OPTARG};;
+		Y) yE=${OPTARG};;
+		s) sep=${OPTARG};;
+    T) t="t";;
+    o) o=${OPTARG};;
+		h) { printf "$HELPTEXT"; exit };;
+    esac
+done
+
+# main program
+printf "targetWordlist 1.0\n"
+echo "[info] flags used: $@"
+
+[ -n "$filename" -a -n "$brandname" ] && { return 2; exit}
+
+all_setup(){
+  echo -e "\n" > f2
+  seq $yS $yE >> f2
+  echo -e "\n" > f3
+  printf "$sep" | sed 's/./&\n/g' - >> f3
+}
+
+# avoids permutations with empty nouns
+# this will always generate ijk or ikj, never ij or ik or i
+ijk_setup(){
+  seq $yS $yE > f2
+  printf "$sep" | sed 's/./&\n/g' - > f3
+}
+
+setup(){
+  [ T = "t" ] && ijk_setup || all_setup;
+}
+
+save(){
+  [ o = "" ] && { mv shuffled_unique $brandname${filename}_wl } || { mv shuffled_unique $o }
+}
+
+clean(){
+  rm f2 f3;
+
+  [ -e f1 ] && rm f1;
+  [ -e leetbrand_unique ] && rm leetbrand_unique;
+}
+
+# brandname.
+# make sure "$brandname", not $brandname inside squared brackets []
+ 
+[ -n "$brandname" ] && {
+  echo "Brand: $brandname";
+
+  # leetspeak from brandname
+  $genleet $brandname > ./leetbrand
+  $unique leetbrand
+  rm leetbrand
+  echo "leet(l33t) brand generated words total: $(wc -l leetbrand_unique)"
+
+  # wordlist generation
+  setup;
+  $shuffle leetbrand_unique f2 f3
+  $unique shuffled
+  rm shuffled
+  echo "wordlist total entries: $(wc -l shuffled_unique)"
+  save;
+  clean;
+
+} || { echo "[error] No brand name"; exit }
+
+# file
+#[debug] echo "filename: $filename";
+[ -n "$filename" ] && { exit }
+[ -r "$filename" ] && {
+	echo "file: $filename"
+
+  # wordlist generation
+  setup;
+  $shuffle $filename f2 f3
+  $unique shuffled
+  rm shuffled
+  echo "wordlist total entries: $(wc -l shuffled_unique)"
+  save;
+  clean;
+
+} || { echo "[error] No file or read permission"; exit }
+
+

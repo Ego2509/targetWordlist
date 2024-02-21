@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+#---- | __|  __|  _ \  ----#
+#---- | _|  (_ | (   | ----#
+#---- |___|\___|\___/  ----#
+
+# personal script
+# this script has been saved on the /usr/bin/ folder
+
+cat -n $1 | sort -uk2 | sort -nk1 | cut -f2- > "$1_unique"
