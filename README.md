@@ -1,6 +1,6 @@
 # Targeted wordlist
 
-Script to generate passwords when testing against auth sites of a brand or from a file.
+Script to generate passwords when testing against auth sites of a brand or from a file. It uses l33tspeak (leetspeak) permutations and has the option to load from a wordlist file with (-f) flag.
 
 type ` ./targetWordlist -h ` to see the documentation.
 
