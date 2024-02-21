@@ -10,7 +10,7 @@ filename=""
 yS=2021
 yE=2023
 sep='*#!.' # must be scaped if needed
-t="f"
+tt="f"
 o=""
 
 # programs
@@ -29,7 +29,7 @@ do
 		y) yS=${OPTARG};;
 		Y) yE=${OPTARG};;
 		s) sep=${OPTARG};;
-		T) t="t";;
+		T) tt="t";;
 		o) o=${OPTARG};;
 		h) { printf "$HELPTEXT"; exit };;
     esac
@@ -41,7 +41,7 @@ echo "[info] flags used: $@"
 
 [ -n "$filename" -a -n "$brandname" ] && { return 2; exit}
 
-all_setup(){
+allsetup(){
   echo -e "\n" > f2
   seq $yS $yE >> f2
   echo -e "\n" > f3
@@ -50,13 +50,13 @@ all_setup(){
 
 # avoids permutations with empty nouns
 # this will always generate ijk or ikj, never ij or ik or i
-ijk_setup(){
+ijksetup(){
   seq $yS $yE > f2
   printf "$sep" | sed 's/./&\n/g' - > f3
 }
 
 setup(){
-  [ T = "t" ] && ijk_setup || all_setup;
+  if [ "$tt" = "t" ]; then ijksetup; else allsetup; fi
 }
 
 save(){
