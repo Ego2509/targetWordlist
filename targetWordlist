@@ -95,7 +95,7 @@ clean(){
 
 # file
 #[debug] echo "filename: $filename";
-[ "$filename" = "" -o -n "$filename" ] && { echo d1; exit }
+[ "$filename" = "" -o -n "$filename" ] && { exit }
 [ -r "$filename" ] && {
 	echo "file: $filename"
 
