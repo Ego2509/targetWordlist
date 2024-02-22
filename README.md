@@ -9,7 +9,7 @@ type ` ./targetWordlist -h ` to see the documentation.
 
 # Install
 
-Clone the repo and use the script on the folder. I have only tested this code with `zsh`, so it is recomended to have it.
+Clone the repo and use the script on the folder. I have only completely tested this code with `zsh`, but a `bash` version has been added [here](https://github.com/Ego2509/targetWordlist/tree/bash-adaptation) and has the lastest changes.
 
 ```zsh
 git clone https://github.com/Ego2509/targetWordlist.git
