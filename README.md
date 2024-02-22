@@ -4,7 +4,7 @@ Script to generate passwords when testing against auth sites of a brand or from 
 
 type ` ./targetWordlist -h ` to see the documentation.
 
-![image](https://github.com/Ego2509/targetWordlist/assets/29050030/6ce8f781-6312-4f71-be17-846a339d5823)
+![image](https://github.com/Ego2509/targetWordlist/assets/29050030/5b39bae7-3df6-495a-a54a-5d1d4941d66b)
 
 
 # Usage example
