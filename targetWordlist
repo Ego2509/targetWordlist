@@ -1,8 +1,8 @@
-#!/bin/zsh
+#!/usr/bin/bash
 
-HELPTEXT=$(cat helpc)
+helpfun(){ cat ./helpc; }
 
-(( $# )) || { printf "$HELPTEXT"; exit }
+(( $# )) || { helpfun; exit; }
 
 # default values:
 brandname=""
@@ -23,44 +23,50 @@ shuffle=./barebone/shuffle-files.py
 
 while getopts "b:f:y:Y:s:o:hT" flag
 do
-    case "${flag}" in
-		b) brandname=${OPTARG};;
-		f) filename=${OPTARG};;
-		y) yS=${OPTARG};;
-		Y) yE=${OPTARG};;
-		s) sep=${OPTARG};;
-		T) tt="t";;
-		o) o=${OPTARG};;
-		h) { printf "$HELPTEXT"; exit };;
+  case "${flag}" in
+    b) brandname=${OPTARG};;
+    f) filename=${OPTARG};;
+    y) yS=${OPTARG};;
+    Y) yE=${OPTARG};;
+    s) sep=${OPTARG};;
+    T) tt="t";;
+    o) o=${OPTARG};;
+    h) helpfun; exit;;
+    *) echo "usage: $0 [option(s)]" >&2
+       exit 1 ;;
     esac
 done
 
 # main program
 printf "targetWordlist 1.0\n"
-echo "[info] flags used: $@"
+echo "[info] flags used: " "$@"
 
-[ -n "$filename" -a -n "$brandname" ] && { return 2; exit}
+[ -n "$filename" ] && [ -n "$brandname" ] && { return 2; }
 
 allsetup(){
   echo -e "\n" > f2
-  seq $yS $yE >> f2
+  seq "$yS" "$yE" >> f2
   echo -e "\n" > f3
-  printf "$sep" | sed 's/./&\n/g' - >> f3
+  echo "$sep" | sed 's/./&\n/g' - >> f3
 }
 
 # avoids permutations with empty nouns
 # this will always generate ijk or ikj, never ij or ik or i
 ijksetup(){
-  seq $yS $yE > f2
-  printf "$sep" | sed 's/./&\n/g' - > f3
+  seq "$yS" "$yE" > f2
+  echo "$sep" | sed 's/./&\n/g' - > f3
 }
 
 setup(){
-  if [ "$tt" = "t" ]; then ijksetup; else allsetup; fi
+  if [ "$tt" = "t" ]; then
+    ijksetup;
+  else
+    allsetup;
+  fi
 }
 
 save(){
-  [ "$o" = "" ] && { mv shuffled_unique wl_$brandname$filename } || { mv shuffled_unique "$o" }
+  [ "$o" = "" ] && { mv shuffled_unique wl_"$brandname""$filename"; } || { mv shuffled_unique "$o"; }
 }
 
 clean(){
@@ -75,38 +81,37 @@ clean(){
  
 if [ -n "$brandname" ]; then {
   echo "[info] Brand: $brandname";
-
   # leetspeak from brandname
-  $genleet $brandname > ./leetbrand
+  $genleet "$brandname" > leetbrand
   $unique leetbrand
   rm leetbrand
-  echo "[info] leet(l33t) brand generated words total: $(wc -l leetbrand_unique)"
+  echo "[info] leet(l33t) brand generated words total: $( wc -l leetbrand_unique )"
 
   # wordlist generation
   setup;
   $shuffle leetbrand_unique f2 f3
   $unique shuffled
   rm shuffled
-  echo "[info] wordlist total entries: $(wc -l shuffled_unique)"
+  echo "[info] wordlist total entries: $( wc -l shuffled_unique )"
   save;
   clean;
 
-} else echo "[debug] No brand name";
+} else echo "[debug] No brand name"
 fi
 
 # file
-[ -z "$filename" ] && { echo "[debug] No filename"; exit };
+[ -z "$filename" ] && { echo "[debug] No filename"; exit; }
 echo "[info] file: $filename"
 if [ -r "$filename" ]; then {
-
   # wordlist generation
   setup;
-  $shuffle $filename f2 f3
+  $shuffle "$filename" f2 f3
   $unique shuffled
   rm shuffled
-  echo "[info] wordlist total entries: $(wc -l shuffled_unique)"
+  echo "[info] wordlist total entries: $( wc -l shuffled_unique )"
   save;
   clean;
-} else echo "[error] No file or read permission";
+} else
+  echo "[error] No file or read permission"
 fi
 

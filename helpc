@@ -25,4 +25,3 @@ targetWordlist -f [2;33mfileWithBrandNames[0m -y [2;34m2018[0m -Y [2;32m202
 there will always be a permutation without separators unless you use [2;31m-T[0m
   
   -[2;31mT[0m	Avoids permutations with empty nouns. Using it will only generate [2;34mijk[0m or [2;34mikj[0m permutations (less than without -T). Never [2;33m[2;35mij or ik or i[0m[2;33m[0m. It might be useful if you don't want to repeat said permutations.
-
