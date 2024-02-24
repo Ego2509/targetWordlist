@@ -33,3 +33,24 @@ git clone https://github.com/Ego2509/targetWordlist.git
 cd targetWordlist
 ./targetWordlist
 ```
+
+Make sure you have the complete barebone folder. The programs inside this folder are used to separate the functionality into smaller tasks.
+
+```zsh
+./barebone
+├── genleeterspeak.py
+├── shuffle-files.py
+└── unique
+```
+
+`genleeterspeak.py` maps comon letter permutations to numbers and outputs them to stdout.
+
+`shuffle-files.py` allows to generate noun permutations comming from files as shown in the example.
+
+`unique` is an update to the uniq program that serves the purpose of deduplicate files without sorting them. This preserves the intended order of the noun permutations.
+
+# Disclaimer
+
+This program serves the sole purpose of generating passwords based on the knowledge gained from a brand in order to automate the pentesting process. The program just generates a small subset of probable passwords and it is up to you to decide what is the scope and reach of said set. There are many tools to make many sorts of passwords such as `crunch`, and many wordlists have decent password lists such as `seclists`. _Do not try to hack anyone without prior permission to do so._
+
+
