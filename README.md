@@ -51,6 +51,6 @@ Make sure you have the complete barebone folder. The programs inside this folder
 
 # Disclaimer
 
-This program serves the sole purpose of generating passwords based on the knowledge gained from a brand in order to automate the pentesting process. The program just generates a small subset of probable passwords and it is up to you to decide what is the scope and reach of said set. There are many tools to make many sorts of passwords such as `crunch`, and many wordlists have decent password lists such as `seclists`. _Do not try to hack anyone without prior permission to do so._
+This program serves the sole purpose of generating passwords based on the knowledge gained from a brand/domain in order to automate the pentesting process. The program just generates a small subset of suitable passwords and it is up to **you** to decide what is the scope and reach of said set. There are many tools to make many sorts of passwords such as `crunch`, and many wordlists have decent password lists such as `seclists`. _Do not try to hack anyone without prior permission to do so._
 
 
